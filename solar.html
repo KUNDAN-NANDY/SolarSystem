@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h2 class="heading">Solar System</h2>
+        <style>
+            .heading{
+                color: rgb(192, 222, 248);
+                font-family: 'Zen Dots', cursive;
+                text-align: center;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body{
+                margin: 0;
+                height: 100vh;
+                display: grid;
+                grid-template-rows: 1fr 8fr 1fr;
+                align-items: center;
+                justify-content: center;
+                background-color: black;
+                overflow: hidden;
+            }
+            .container {
+                font-size: 10px;
+                width: 40em;
+                height: 40em;
+                position: relative;
+            }
+            .container2 {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            .bubbles {
+                position: relative;
+                display: flex;
+            }
+            .bubbles span {
+                position: relative;
+                height: 30px;
+                width: 30px;
+                background: white;
+                margin: 0 4px;
+                border-radius: 50%;
+                box-shadow: 0 0 0 10px slategray, 0 0 50px white, 0 0 100px white;
+                animation: animate 15s linear infinite;
+                animation-duration: calc(90s / var(--i));
+            }
+            .bubbles span:nth-child(even) {
+                background: silver;
+                box-shadow: 0 0 0 10px white, 0 0 50px silver, 0 0 100px silver;
+            }
+            .sun {
+                position: absolute;
+                top: 15em;
+                left: 15em;
+                width: 10em;
+                height: 10em;
+                background-color: rgb(253, 184, 19);
+                border-radius: 50%;
+                box-shadow: 0 0 3em white;
+            }
+            .marcury, .venus, .earth, .e_moon, .mars, .jupiter, .saturn, .uranus, .neptune {
+                position: absolute;
+                border-style: solid;
+                border-color: white transparent transparent;
+                border-width: 0.1em 0.1em 0 0;
+                border-radius: 50%;
+            }
+            .marcury {
+                top: 11em;
+                left: 11em;
+                width: 18em;
+                height: 18em;
+                animation: orbit 3.5s linear infinite;
+            }
+            .venus {
+                top: 8em;
+                left: 8em;
+                width: 24em;
+                height: 24em;
+                animation: orbit 6.5s linear infinite;
+            }
+            .earth {
+                top: 5em;
+                left: 5em;
+                width: 30em;
+                height: 30em;
+                animation: orbit 10.5s linear infinite;
+            }
+            .e_moon {
+                top: 2.5em;
+                right: 2.5em;
+                width: 3.1em;
+                height: 3.1em;
+                animation: orbit 1.7s linear infinite;
+            }
+            .mars {
+                top: 2em;
+                left: 2em;
+                width: 36em;
+                height: 36em;
+                animation: orbit 15.5s linear infinite;
+            }
+            .jupiter{
+                top: -2em;
+                left: -2em;
+                width: 44em;
+                height: 44em;
+                animation: orbit 20.5s linear infinite;
+            }
+            .saturn{
+                top: -5em;
+                left: -5em;
+                width: 52em;
+                height: 52em;
+                animation: orbit 25.5s linear infinite;
+            }
+            .uranus{
+                top: -9em;
+                left: -9em;
+                width: 60em;
+                height: 60em;
+                animation: orbit 30.5s linear infinite;
+            }
+            .neptune{
+                top: -13em;
+                left: -13em;
+                width: 68em;
+                height: 68em;
+                animation: orbit 35.5s linear infinite;
+            }
+            .marcury::before, .venus::before, .earth::before, .e_moon::before, .mars::before,
+            .jupiter::before, .saturn::before, .saturn::after, .uranus::before, .neptune::before {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+            }
+            .marcury::before {
+                top: 2.1em;
+                right: 2.1em;
+                width: 1em;
+                height: 1em;
+                background-color: slategray;
+            }
+            .venus::before {
+                top: 2.7em;
+                right: 2.7em;
+                width: 1.5em;
+                height: 1.5em;
+                background-color: rgb(165,124,27);
+            }
+            .earth::before {
+                top: 2.9em;
+                right: 2.9em;
+                width: 2.5em;
+                height: 2.5em;
+                background-color: rgb(0, 150, 255);
+            }
+            .e_moon::before {
+                top: 0.2em;
+                right: 0.2em;
+                width: 0.5em;
+                height: 0.5em;
+                background-color: silver;
+            }
+            .mars::before {
+                top: 4.1em;
+                right: 4.1em;
+                width: 2em;
+                height: 2em;
+                background-color: orangered;
+            }
+            .jupiter::before {
+                top: 4.1em;
+                right: 4.1em;
+                width: 4em;
+                height: 4em;
+                background-color: beige;
+            }
+            .saturn::before {
+                top: 6em;
+                right: 6em;
+                width: 3.2em;
+                height: 3.2em;
+                background-color: rgb(197, 171, 110);
+            }
+            .saturn::after {
+                top: 5em;
+                right: 7em;
+                width: 1em;
+                height: 5em;
+                background-color: rgb(197, 171, 110);
+            }
+            .uranus::before {
+                top: 7em;
+                right: 8em;
+                width: 2.9em;
+                height: 2.9em;
+                background-color: rgb(115, 213, 222);
+            }
+            .neptune::before {
+                top: 8em;
+                right: 9em;
+                width: 2.7em;
+                height: 2.7em;
+                background-color: rgb(33, 35, 84);
+            }
+            @keyframes orbit {
+                to{
+                    transform: rotate(360deg);
+                }
+            }
+            @keyframes animate {
+                0% {
+                    transform: translateY(100vh) scale(0);
+                }
+                100% {
+                    transform: translateY(-10vh) scale(0.1);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="sun"></div>
+            <div class="marcury"></div>
+            <div class="venus"></div>
+            <div class="earth">
+                <div class="e_moon"></div>
+            </div>
+            <div class="mars"></div>
+            <div class="jupiter"></div>
+            <div class="saturn"></div>
+            <div class="uranus"></div>
+            <div class="neptune"></div>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Zen+Dots&display=swap" rel="stylesheet">
+        </div>
+        <div class="container2">
+            <div class="bubbles">
+                <span style="--i:11"></span>
+                <span style="--i:12"></span>
+                <span style="--i:24"></span>
+                <span style="--i:10"></span>
+                <span style="--i:14"></span>
+                <span style="--i:23"></span>
+                <span style="--i:18"></span>
+                <span style="--i:16"></span>
+                <span style="--i:19"></span>
+                <span style="--i:20"></span>
+                <span style="--i:22"></span>
+                <span style="--i:25"></span>
+                <span style="--i:18"></span>
+                <span style="--i:21"></span>
+                <span style="--i:15"></span>
+                <span style="--i:13"></span>
+                <span style="--i:26"></span>
+                <span style="--i:17"></span>
+                <span style="--i:13"></span>
+                <span style="--i:28"></span>
+                <span style="--i:11"></span>
+                <span style="--i:12"></span>
+                <span style="--i:24"></span>
+                <span style="--i:10"></span>
+                <span style="--i:14"></span>
+                <span style="--i:23"></span>
+                <span style="--i:18"></span>
+                <span style="--i:16"></span>
+                <span style="--i:19"></span>
+                <span style="--i:20"></span>
+                <span style="--i:22"></span>
+                <span style="--i:25"></span>
+                <span style="--i:18"></span>
+                <span style="--i:21"></span>
+                <span style="--i:15"></span>
+                <span style="--i:13"></span>
+                <span style="--i:26"></span>
+                <span style="--i:17"></span>
+                <span style="--i:13"></span>
+                <span style="--i:28"></span>
+            </div>
+        </div>
+    </body>
+</html>
